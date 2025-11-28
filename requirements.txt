@@ -1,0 +1,24 @@
+# Entity Tracker - LangGraph Entity Monitoring System
+
+# Core dependencies
+langgraph>=0.2.0
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-openai>=0.2.0
+langchain-community>=0.3.0
+
+# Optional search providers (uncomment as needed)
+# langchain-google-vertexai>=2.0.0  # For Gemini models
+# langchain-anthropic>=0.2.0         # For Claude models
+
+# Web search (optional - enables web search functionality)
+tavily-python>=0.5.0
+
+# Data processing
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# Development dependencies
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+

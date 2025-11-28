@@ -1,0 +1,8 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "entity_tracker": "./entity_tracker/agent.py:graph"
+  },
+  "env": ".env"
+}
+
