@@ -6,7 +6,7 @@ Defines the state structure that flows through the LangGraph nodes.
 
 from typing import Optional, Annotated
 from typing_extensions import TypedDict
-from langchain.schema import Document
+from langchain_core.documents import Document
 from entity_tracker.schemas import EntityHistory, EntityHistoryPlan
 
 
@@ -55,4 +55,8 @@ class EntityTrackerOutput(TypedDict):
     """Output from the entity tracker."""
     entity_history_output: EntityHistory
     no_new_information: bool
+    entity_id: Optional[str]
+    entity_name: Optional[str]
+    main_entity_name: Optional[str]
+    related_entity_name: Optional[str]
 

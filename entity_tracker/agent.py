@@ -10,11 +10,11 @@ from typing import Literal
 from datetime import datetime
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.runnables import RunnableConfig
-from langgraph.constants import Send
+from langgraph.types import Send
 from langgraph.graph import START, END, StateGraph
-from langgraph.pregel import RetryPolicy
+from langgraph.pregel._retry import RetryPolicy
 from langgraph.types import Command
-from langchain.schema import Document
+from langchain_core.documents import Document
 
 from entity_tracker.configuration import Configuration
 from entity_tracker.state import (
@@ -687,9 +687,9 @@ async def update_entity_history(state: EntityTrackerState, config: RunnableConfi
 # Build the graph
 entity_builder = StateGraph(
     EntityTrackerState,
-    input=EntityTrackerInput,
-    output=EntityTrackerOutput,
-    config_schema=Configuration
+    input_schema=EntityTrackerInput,
+    output_schema=EntityTrackerOutput,
+    context_schema=Configuration
 )
 
 # Create retry policy for resilience
@@ -703,27 +703,27 @@ retry_policy = RetryPolicy(
 
 # Add nodes with retry policies
 entity_builder.add_node("initialize_search", initialize_search)
-entity_builder.add_node("create_universal_queries", create_universal_queries, retry=retry_policy)
+entity_builder.add_node("create_universal_queries", create_universal_queries, retry_policy=retry_policy)
 
-entity_builder.add_node("search_web", search_web, retry=retry_policy)
-entity_builder.add_node("review_web_sources", review_web_sources, retry=retry_policy)
+entity_builder.add_node("search_web", search_web, retry_policy=retry_policy)
+entity_builder.add_node("review_web_sources", review_web_sources, retry_policy=retry_policy)
 
-entity_builder.add_node("search_email", search_email, retry=retry_policy)
-entity_builder.add_node("review_email_sources", review_email_sources, retry=retry_policy)
+entity_builder.add_node("search_email", search_email, retry_policy=retry_policy)
+entity_builder.add_node("review_email_sources", review_email_sources, retry_policy=retry_policy)
 
-entity_builder.add_node("search_youtube", search_youtube, retry=retry_policy)
-entity_builder.add_node("review_youtube_sources", review_youtube_sources, retry=retry_policy)
+entity_builder.add_node("search_youtube", search_youtube, retry_policy=retry_policy)
+entity_builder.add_node("review_youtube_sources", review_youtube_sources, retry_policy=retry_policy)
 
-entity_builder.add_node("search_speeches", search_speeches, retry=retry_policy)
-entity_builder.add_node("review_speeches_sources", review_speeches_sources, retry=retry_policy)
+entity_builder.add_node("search_speeches", search_speeches, retry_policy=retry_policy)
+entity_builder.add_node("review_speeches_sources", review_speeches_sources, retry_policy=retry_policy)
 
-entity_builder.add_node("search_scraper", search_scraper, retry=retry_policy)
-entity_builder.add_node("review_scraper_sources", review_scraper_sources, retry=retry_policy)
+entity_builder.add_node("search_scraper", search_scraper, retry_policy=retry_policy)
+entity_builder.add_node("review_scraper_sources", review_scraper_sources, retry_policy=retry_policy)
 
-entity_builder.add_node("gather_sources", gather_sources, retry=retry_policy)
-entity_builder.add_node("assemble_history_entry", assemble_history_entry, retry=retry_policy)
-entity_builder.add_node("should_update_entity_history", should_update_entity_history, retry=retry_policy)
-entity_builder.add_node("update_entity_history", update_entity_history, retry=retry_policy)
+entity_builder.add_node("gather_sources", gather_sources, retry_policy=retry_policy)
+entity_builder.add_node("assemble_history_entry", assemble_history_entry, retry_policy=retry_policy)
+entity_builder.add_node("should_update_entity_history", should_update_entity_history, retry_policy=retry_policy)
+entity_builder.add_node("update_entity_history", update_entity_history, retry_policy=retry_policy)
 
 # Add edges
 entity_builder.add_edge(START, "initialize_search")

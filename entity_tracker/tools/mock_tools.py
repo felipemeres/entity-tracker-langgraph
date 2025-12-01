@@ -9,7 +9,7 @@ In a production environment, replace these with actual integrations to:
 """
 
 from typing import List
-from langchain.schema import Document
+from langchain_core.documents import Document
 from datetime import datetime, timezone
 
 

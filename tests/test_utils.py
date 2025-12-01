@@ -1,7 +1,7 @@
 """Tests for utility functions."""
 
 import pytest
-from langchain.schema import Document
+from langchain_core.documents import Document
 from entity_tracker.utils.sources import parse_and_cap_source_content, parse_and_cap_sources
 
 

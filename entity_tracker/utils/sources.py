@@ -4,7 +4,7 @@ Utility functions for processing and managing source documents.
 This module provides utilities for content truncation, source parsing, and deduplication.
 """
 
-from langchain.schema import Document
+from langchain_core.documents import Document
 from typing import List
 
 
