@@ -54,7 +54,7 @@ class Configuration:
     source_content_max_length: int = 8000  # Maximum length for source content before truncation
     
     # Query generation
-    create_universal_queries_enabled: bool = False
+    create_universal_queries_enabled: bool = True
     create_queries_pass_sources: bool = False
     universal_queries_number_of_queries: int = 2
     
